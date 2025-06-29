@@ -1,4 +1,7 @@
-# Day 3 Script - CSV Greetings
+# Day 3 - CSV Greeting Script
 
-Write-Host "This is Day 3 of Project T"
-Write-Host "Uploading new file created"
+$users = Import-Csv -Path "../names.csv"
+
+foreach ($user in $users) {
+    Write-Host "Hello, $($user.Name)! Welcome to Project T"
+}

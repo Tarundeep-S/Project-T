@@ -1,6 +1,6 @@
 # Day 4 - PowerShell Log Generator
 
-# Triggered by GitHub Actions
+# Trigger GitHub Actions again
 
 $logFile = "../ProjectT.log"
 

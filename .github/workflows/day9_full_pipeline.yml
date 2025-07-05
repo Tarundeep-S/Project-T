@@ -1,0 +1,49 @@
+name: Day 9 - Full Log Pipeline
+
+on:
+  push:
+    paths:
+      - 'PowerShell/**'
+      - '.github/workflows/**'
+
+jobs:
+  log-writer:
+    name: Log Writer
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Run log writer script (Day 4)
+        shell: pwsh
+        run: |
+          cd PowerShell
+          ./day4_log_writer.ps1
+
+  log-rotator:
+    name: Log Rotator
+    needs: log-writer
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Run log rotator script (Day 5)
+        shell: pwsh
+        run: |
+          cd PowerShell
+          ./day5_log_rotate.ps1
+
+  artifact-builder:
+    name: Artifact ZIP Builder
+    needs: log-rotator
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Run artifact builder (Day 7)
+        shell: pwsh
+        run: |
+          cd PowerShell
+          ./day7_artifact_builder.ps1

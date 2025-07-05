@@ -1,0 +1,28 @@
+name: Day 8 - Log Archive Zipper
+
+on:
+  push:
+    paths:
+      - 'PowerShell/**'
+      - '.github/workflows/**'
+
+jobs:
+  zip-logs:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PowerShell
+        shell: pwsh
+        run: |
+          $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
+          $sourceFolder = "$(pwd)/PowerShell/logs_archive"
+          $zipFile = "$(pwd)/PowerShell/logs_backup_$timestamp.zip"
+
+          if (Test-Path $sourceFolder) {
+              Compress-Archive -Path "$sourceFolder/*" -DestinationPath $zipFile -Force
+              Write-Host "Logs archived to $zipFile"
+          } else {
+              Write-Host "logs_archive not found. Skipping zip step."
+          }

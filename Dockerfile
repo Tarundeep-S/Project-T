@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY PowerShell/ ./PowerShell/
 
-ENTRYPOINT ["pwsh", "./PowerShell/day13_dynamic_logger.ps1"]
+ENTRYPOINT ["pwsh", "./PowerShell/day14_cleanup.ps1"]
